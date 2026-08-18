@@ -1,0 +1,332 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit_balise_telegram/moonbit_balise_telegram"
+
+// Values
+pub fn authority_section(Int, Int, Int) -> AuthoritySection
+
+pub fn balise_identity(Int, Int, Int) -> BaliseIdentity
+
+pub fn balise_observation(Int, BaliseIdentity, PacketDirection, BaliseTelegram) -> BaliseObservation
+
+pub fn both_direction() -> PacketDirection
+
+pub let channel_codebook : Array[Int]
+
+pub fn channel_codeword(Int) -> Int
+
+pub fn channel_layout(TelegramForm) -> ChannelLayout
+
+pub fn decode_channel(BitVector, TelegramForm) -> Result[ChannelFrame, ChannelError]
+
+pub fn encode_channel(BitVector, TelegramForm, BitVector, BitVector, BitVector) -> Result[ChannelFrame, ChannelError]
+
+pub fn encode_default_channel(BitVector, TelegramForm) -> Result[ChannelFrame, ChannelError]
+
+pub fn encode_packet(Packet) -> BitVector raise PacketError
+
+pub fn encode_telegram(TelegramForm, TelegramHeader, Array[Packet]) -> BitVector raise PacketError
+
+pub fn encode_telegram_channel(TelegramForm, TelegramHeader, Array[Packet]) -> Result[ChannelFrame, ChannelError] raise PacketError
+
+pub fn generate_test_case(Scenario) -> Array[GeneratedTelegram] raise PacketError
+
+pub fn gradient_section(Int, Bool, Int) -> GradientSection
+
+pub fn library_ready() -> Bool
+
+pub fn linking_section(Int, Int, Int, Int, Int, Int) -> LinkingSection
+
+pub fn long_form() -> TelegramForm
+
+pub fn make_gradient_packet(PacketHeader, Int, Array[GradientSection]) -> Packet
+
+pub fn make_linking_packet(PacketHeader, Array[LinkingSection]) -> Packet
+
+pub fn make_movement_authority_packet(PacketHeader, Int, Array[AuthoritySection]) -> Packet
+
+pub fn make_static_speed_packet(PacketHeader, Int, Int, Array[SpeedSection]) -> Packet
+
+pub fn new_balise_group(Int) -> BaliseGroup
+
+pub fn nominal_direction() -> PacketDirection
+
+pub fn packet_end_id() -> Int
+
+pub fn packet_gradient_id() -> Int
+
+pub fn packet_header(Int, PacketDirection) -> PacketHeader
+
+pub fn packet_linking_id() -> Int
+
+pub fn packet_movement_authority_id() -> Int
+
+pub fn packet_static_speed_id() -> Int
+
+pub fn parse_channel_telegram(BitVector, TelegramForm) -> Result[BaliseTelegram, ChannelError] raise PacketError
+
+pub fn parse_packet(BitVector) -> Packet raise PacketError
+
+pub fn parse_telegram(BitVector, TelegramForm) -> BaliseTelegram raise PacketError
+
+pub fn reverse_direction() -> PacketDirection
+
+pub fn scenario(TelegramForm, Array[ScenarioBalise]) -> Scenario
+
+pub fn scenario_balise(BaliseIdentity, Array[Packet]) -> ScenarioBalise
+
+pub fn short_form() -> TelegramForm
+
+pub fn speed_section(Int, Int, Int) -> SpeedSection
+
+pub fn telegram_header(Int, Int, Int, Int, Int, Int, Int) -> TelegramHeader
+
+pub fn telegram_header_bits() -> Int
+
+// Errors
+pub(all) suberror GroupError {
+  InvalidExpectedCount(Int)
+  DuplicateOrdinal(Int)
+  TooManyObservations(Int)
+}
+pub fn GroupError::message(Self) -> String
+
+pub(all) suberror PacketError {
+  BitError(BitReadError)
+  InvalidIdentifier(Int)
+  InvalidDirection(Int)
+  InvalidLength(Int)
+  Truncated(Int, Int)
+}
+pub fn PacketError::message(Self) -> String
+
+// Types and methods
+pub struct AuthoritySection {
+  distance : Int
+  permitted_speed : Int
+  release_speed : Int
+}
+
+pub struct BaliseGroup {
+  expected_count : Int
+  observations : Array[BaliseObservation]
+}
+pub fn BaliseGroup::add(Self, BaliseObservation) -> Unit raise GroupError
+pub fn BaliseGroup::complete(Self) -> Bool
+pub fn BaliseGroup::count(Self) -> Int
+pub fn BaliseGroup::pass_order(Self, Bool) -> Array[Int]
+pub fn BaliseGroup::resolve_links(Self) -> Array[GroupLinkReport]
+
+pub struct BaliseIdentity {
+  country : Int
+  group : Int
+  index : Int
+}
+
+pub struct BaliseObservation {
+  ordinal : Int
+  identity : BaliseIdentity
+  direction : PacketDirection
+  telegram : BaliseTelegram
+}
+
+pub struct BaliseTelegram {
+  form : TelegramForm
+  header : TelegramHeader
+  packets : Array[Packet]
+  logical_payload : BitVector
+}
+
+pub enum BitReadError {
+  InvalidWidth(Int)
+  OutOfBounds(Int, Int)
+  InvalidCharacter(Int)
+  ValueOverflow(Int)
+}
+
+pub struct BitReader {
+  bits : Array[Bool]
+  mut cursor : Int
+}
+pub fn BitReader::mark(Self) -> Int
+pub fn BitReader::new(BitVector) -> Self
+pub fn BitReader::peek_bit(Self) -> Result[Bool, BitReadError]
+pub fn BitReader::position(Self) -> Int
+pub fn BitReader::read_bit(Self) -> Result[Bool, BitReadError]
+pub fn BitReader::read_bits(Self, Int) -> Result[BitVector, BitReadError]
+pub fn BitReader::read_uint(Self, Int) -> Result[Int, BitReadError]
+pub fn BitReader::remaining(Self) -> Int
+pub fn BitReader::reset(Self, Int) -> Result[Unit, BitReadError]
+pub fn BitReader::skip(Self, Int) -> Result[Unit, BitReadError]
+
+pub struct BitVector {
+  bits : Array[Bool]
+}
+pub fn BitVector::append(Self, Self) -> Unit
+pub fn BitVector::from_array(Array[Bool]) -> Self
+pub fn BitVector::from_string(String) -> Result[Self, BitReadError]
+pub fn BitVector::get(Self, Int) -> Result[Bool, BitReadError]
+pub fn BitVector::length(Self) -> Int
+pub fn BitVector::new() -> Self
+pub fn BitVector::push(Self, Bool) -> Unit
+pub fn BitVector::slice(Self, Int, Int) -> Result[Self, BitReadError]
+pub fn BitVector::to_string(Self) -> String
+
+pub struct BitWriter {
+  bits : BitVector
+}
+pub fn BitWriter::finish(Self) -> BitVector
+pub fn BitWriter::new() -> Self
+pub fn BitWriter::write_bit(Self, Bool) -> Unit
+pub fn BitWriter::write_bits(Self, BitVector) -> Unit
+pub fn BitWriter::write_uint(Self, Int, Int) -> Result[Unit, BitReadError]
+
+pub enum ChannelError {
+  WrongLength(Int, Int)
+  InvalidControlLength(Int)
+  InvalidScramblingLength(Int)
+  InvalidExtraLength(Int)
+  InvalidCodeword(Int)
+  CheckFailed
+}
+pub fn ChannelError::message(Self) -> String
+
+pub struct ChannelFrame {
+  form : TelegramForm
+  logical_data : BitVector
+  symbol_data : BitVector
+  control_bits : BitVector
+  scrambling_bits : BitVector
+  extra_shaping_bits : BitVector
+  check_bits : BitVector
+}
+pub fn ChannelFrame::raw(Self) -> BitVector
+
+pub struct ChannelLayout {
+  form : TelegramForm
+  total_bits : Int
+  logical_bits : Int
+  symbol_bits : Int
+  auxiliary_bits : Int
+  check_bits : Int
+}
+
+pub struct GeneratedTelegram {
+  ordinal : Int
+  identity : BaliseIdentity
+  logical : BitVector
+  raw : BitVector
+}
+
+pub struct GradientPacket {
+  header : PacketHeader
+  scale : Int
+  sections : Array[GradientSection]
+}
+
+pub struct GradientSection {
+  distance : Int
+  uphill : Bool
+  gradient : Int
+}
+
+pub struct GroupLinkReport {
+  source_ordinal : Int
+  target_country : Int
+  target_group : Int
+  resolution : LinkResolution
+}
+
+pub enum LinkResolution {
+  Matched(Int, Int)
+  Unmatched(Int, Int)
+  Ambiguous(Int, Int)
+}
+
+pub struct LinkingPacket {
+  header : PacketHeader
+  sections : Array[LinkingSection]
+}
+
+pub struct LinkingSection {
+  distance : Int
+  country : Int
+  group : Int
+  orientation : Int
+  reaction : Int
+  location_accuracy : Int
+}
+
+pub struct MovementAuthorityPacket {
+  header : PacketHeader
+  scale : Int
+  sections : Array[AuthoritySection]
+}
+
+pub enum Packet {
+  Linking(LinkingPacket)
+  MovementAuthority(MovementAuthorityPacket)
+  Gradient(GradientPacket)
+  StaticSpeed(StaticSpeedPacket)
+  Unknown(PacketHeader, BitVector)
+  End
+}
+
+pub enum PacketDirection {
+  Nominal
+  Reverse
+  Both
+  Unknown(Int)
+}
+
+pub struct PacketHeader {
+  id : Int
+  direction : PacketDirection
+  length_bits : Int
+}
+
+pub struct Scenario {
+  form : TelegramForm
+  balises : Array[ScenarioBalise]
+  version : Int
+}
+
+pub struct ScenarioBalise {
+  identity : BaliseIdentity
+  packets : Array[Packet]
+}
+
+pub struct SpeedSection {
+  distance : Int
+  speed : Int
+  differential : Int
+}
+
+pub struct StaticSpeedPacket {
+  header : PacketHeader
+  scale : Int
+  front : Int
+  sections : Array[SpeedSection]
+}
+
+pub enum TelegramForm {
+  Short
+  Long
+}
+pub fn TelegramForm::logical_bits(Self) -> Int
+pub fn TelegramForm::symbol_bits(Self) -> Int
+pub fn TelegramForm::symbol_count(Self) -> Int
+pub fn TelegramForm::total_bits(Self) -> Int
+
+pub struct TelegramHeader {
+  version : Int
+  balise_index : Int
+  balise_count : Int
+  copy : Int
+  country : Int
+  group : Int
+  sequence : Int
+}
+
+// Type aliases
+
+// Traits

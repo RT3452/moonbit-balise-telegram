@@ -1,0 +1,5 @@
+import {
+  "moonbit_balise_telegram/moonbit_balise_telegram" @balise,
+}
+
+pkgtype(kind: "executable")
