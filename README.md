@@ -64,7 +64,7 @@ let decoded = parse_telegram(payload, form)
 ### 评审可验证项
 
 - `moon run cmd/balise-inspect`：可运行示例。
-- `moon test --deny-warn`：29 个测试覆盖位流边界、短/长信道帧、校验破坏、Packet 往返、Telegram 往返、应答器组链接、查询、schema、变异、差异和轨道评估。
+- `moon test --deny-warn`：32 个测试覆盖位流边界、短/长信道帧、校验破坏、Packet 往返、Telegram 往返、应答器组链接、查询、schema、变异、差异和轨道评估。
 - `docs/architecture.md`：模块关系、字段边界和扩展点。
 - `docs/protocol-scope.md`：已实现字段与明确未实现内容。
 - `.github/workflows/ci.yml`：跨平台格式、信息生成、检查和测试。

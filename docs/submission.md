@@ -29,7 +29,7 @@ Eurobalise 是 ETCS/CTCS 地面应答器向车载 BTM 传递线路信息的重�
 
 ## 五、验收方式与预期成果
 
-仓库提供可运行示例 `moon run cmd/balise-inspect`、完整 README、架构说明、协议范围、来源与许可证说明，以及 Ubuntu/macOS/Windows CI。当前包含 34 个 MoonBit 源文件、约 4001 行非空源码和 29 个测试；默认/native 测试全部通过，并对全目标执行严格编译检查。验收重点为短/长帧往返、校验破坏拒绝、Packet 字段边界、Linking 解析、正反向过顶、schema 查询和差异报告。
+仓库提供可运行示例 `moon run cmd/balise-inspect`、完整 README、架构说明、协议范围、来源与许可证说明，以及 Ubuntu/macOS/Windows CI。当前包含 34 个 MoonBit 源文件、4068 行非空源码和 32 个测试；默认/native 测试全部通过，并对全目标执行严格编译检查。验收重点为短/长帧往返、校验破坏拒绝、Packet 字段边界、Linking 解析、正反向过顶、schema 查询和差异报告。
 
 ## 六、开源合规与生态贡献
 
