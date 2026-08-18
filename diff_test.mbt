@@ -48,3 +48,14 @@ test "text reports stay compact" {
   let bits = BitVector::from_string("1010").unwrap()
   inspect(frame_digest(bits), content="bits=4 ones=2 hex=A")
 }
+
+///|
+test "bit diff handles length mismatch and limits" {
+  let left = BitVector::from_string("10").unwrap()
+  let right = BitVector::from_string("1011").unwrap()
+  let diff = diff_bits(left, right, 1)
+  inspect(diff.same_length, content="false")
+  inspect(diff.hamming_distance, content="2")
+  inspect(diff.first_difference, content="-1")
+  inspect(diff.changed_positions.length(), content="0")
+}

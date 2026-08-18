@@ -36,3 +36,12 @@ test "schema exposes packet offsets" {
   inspect(schema_value_valid(schema, "G_A", 256), content="false")
   inspect(schema_repeated_count(schema), content="3")
 }
+
+///|
+test "unknown schema keeps the common envelope" {
+  let schema = packet_schema(200)
+  inspect(schema_summary(schema), content="Unknown(200) fields=3 core_width=23")
+  inspect(schema_width(schema), content="23")
+  inspect(schema_has_field(schema, "V_MAIN"), content="false")
+  inspect(schema_value_valid(schema, "V_MAIN", 1), content="false")
+}
