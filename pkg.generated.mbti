@@ -2,6 +2,8 @@
 package "moonbit_balise_telegram/moonbit_balise_telegram"
 
 // Values
+pub fn assess_speed_profile(BaliseTelegram, Int) -> Array[SafetySample]
+
 pub fn authority_section(Int, Int, Int) -> AuthoritySection
 
 pub fn balise_identity(Int, Int, Int) -> BaliseIdentity
@@ -10,13 +12,33 @@ pub fn balise_observation(Int, BaliseIdentity, PacketDirection, BaliseTelegram) 
 
 pub fn both_direction() -> PacketDirection
 
+pub fn braking_distance(Int, Int, Int) -> Int
+
+pub fn changed_ranges(BitDiff) -> Array[(Int, Int)]
+
 pub let channel_codebook : Array[Int]
 
 pub fn channel_codeword(Int) -> Int
 
+pub fn channel_diff(BitVector, BitVector, Int) -> BitDiff
+
 pub fn channel_layout(TelegramForm) -> ChannelLayout
 
+pub fn crc16_ccitt(BitVector, Int) -> Int
+
+pub fn damaged_channel_fixtures(TelegramForm, Int, Int) -> Array[(BitVector, BitVector)] raise PacketError
+
 pub fn decode_channel(BitVector, TelegramForm) -> Result[ChannelFrame, ChannelError]
+
+pub fn default_scrambler_profile() -> ScramblerProfile
+
+pub fn demo_track() -> TrackModel
+
+pub fn descramble_bits(BitVector, ScramblerProfile) -> BitVector
+
+pub fn deterministic_rng(Int) -> DeterministicRng
+
+pub fn diff_bits(BitVector, BitVector, Int) -> BitDiff
 
 pub fn encode_channel(BitVector, TelegramForm, BitVector, BitVector, BitVector) -> Result[ChannelFrame, ChannelError]
 
@@ -28,9 +50,29 @@ pub fn encode_telegram(TelegramForm, TelegramHeader, Array[Packet]) -> BitVector
 
 pub fn encode_telegram_channel(TelegramForm, TelegramHeader, Array[Packet]) -> Result[ChannelFrame, ChannelError] raise PacketError
 
+pub fn end_packet() -> Packet
+
+pub fn evaluate_telegram_track(BaliseTelegram, TrackModel, TrainProfile, Int) -> Array[TrackSample]
+
+pub fn evaluate_track(TrackModel, TrainProfile, Int) -> Array[TrackSample]
+
+pub fn filter_telegrams(TelegramQuery, Array[BaliseTelegram]) -> Array[BaliseTelegram]
+
+pub fn format_bit_ranges(Array[(Int, Int)]) -> String
+
+pub fn forward_pass() -> PassDirection
+
+pub fn frame_digest(BitVector) -> String
+
 pub fn generate_test_case(Scenario) -> Array[GeneratedTelegram] raise PacketError
 
+pub fn generated_scenario(TelegramForm, Int) -> Scenario
+
 pub fn gradient_section(Int, Bool, Int) -> GradientSection
+
+pub fn group_summary(BaliseGroup) -> String
+
+pub fn has_packet(Array[Packet], Int) -> Bool
 
 pub fn library_ready() -> Bool
 
@@ -46,9 +88,21 @@ pub fn make_movement_authority_packet(PacketHeader, Int, Array[AuthoritySection]
 
 pub fn make_static_speed_packet(PacketHeader, Int, Int, Array[SpeedSection]) -> Packet
 
+pub fn matches_query(TelegramQuery, BaliseTelegram) -> Bool
+
+pub fn mutate_bits(BitVector, Int, Int) -> (BitVector, Array[BitMutation])
+
 pub fn new_balise_group(Int) -> BaliseGroup
 
+pub fn new_validation_report() -> ValidationReport
+
 pub fn nominal_direction() -> PacketDirection
+
+pub fn packet_catalog() -> Array[PacketDescriptor]
+
+pub fn packet_cursor(Array[Packet]) -> PacketCursor
+
+pub fn packet_descriptor(Int) -> PacketDescriptor
 
 pub fn packet_end_id() -> Int
 
@@ -56,9 +110,21 @@ pub fn packet_gradient_id() -> Int
 
 pub fn packet_header(Int, PacketDirection) -> PacketHeader
 
+pub fn packet_id(Packet) -> Int
+
+pub fn packet_ids(BaliseTelegram) -> Array[Int]
+
 pub fn packet_linking_id() -> Int
 
+pub fn packet_metrics(Array[Packet]) -> PacketMetrics
+
 pub fn packet_movement_authority_id() -> Int
+
+pub fn packet_name(Packet) -> String
+
+pub fn packet_schema(Int) -> PacketSchema
+
+pub fn packet_sequence(BitVector) -> Array[Packet] raise PacketError
 
 pub fn packet_static_speed_id() -> Int
 
@@ -68,19 +134,83 @@ pub fn parse_packet(BitVector) -> Packet raise PacketError
 
 pub fn parse_telegram(BitVector, TelegramForm) -> BaliseTelegram raise PacketError
 
+pub fn pass_report_summary(PassReport) -> String
+
+pub fn query_all() -> TelegramQuery
+
+pub fn query_country(Int) -> TelegramQuery
+
+pub fn query_direction(PacketDirection) -> TelegramQuery
+
+pub fn query_group(Int, Int) -> TelegramQuery
+
+pub fn query_packet_id(Int) -> TelegramQuery
+
+pub fn random_logical_vectors(TelegramForm, Int, Int) -> Array[BitVector]
+
+pub fn resolved_link_chain(BaliseGroup) -> Array[LinkChainStep]
+
 pub fn reverse_direction() -> PacketDirection
+
+pub fn reverse_pass() -> PassDirection
 
 pub fn scenario(TelegramForm, Array[ScenarioBalise]) -> Scenario
 
 pub fn scenario_balise(BaliseIdentity, Array[Packet]) -> ScenarioBalise
 
+pub fn schema_field(PacketSchema, String) -> FieldSchema?
+
+pub fn schema_field_end(PacketSchema, String) -> Int?
+
+pub fn schema_has_field(PacketSchema, String) -> Bool
+
+pub fn schema_mask(PacketSchema, String) -> BitVector?
+
+pub fn schema_repeated_count(PacketSchema) -> Int
+
+pub fn schema_summary(PacketSchema) -> String
+
+pub fn schema_value_valid(PacketSchema, String, Int) -> Bool
+
+pub fn schema_width(PacketSchema) -> Int
+
+pub fn scramble_bits(BitVector, ScramblerProfile) -> BitVector
+
+pub fn scrambler_mask(ScramblerProfile, Int) -> BitVector
+
+pub fn scrambler_profile(Int, Int, Int) -> ScramblerProfile
+
+pub fn select_packets(Array[Packet], Int) -> Array[Packet]
+
 pub fn short_form() -> TelegramForm
 
+pub fn simulate_pass(Scenario, PassDirection) -> PassReport raise PacketError
+
 pub fn speed_section(Int, Int, Int) -> SpeedSection
+
+pub fn telegram_diff(BaliseTelegram, BaliseTelegram) -> Array[TelegramDifference]
 
 pub fn telegram_header(Int, Int, Int, Int, Int, Int, Int) -> TelegramHeader
 
 pub fn telegram_header_bits() -> Int
+
+pub fn telegram_summary(BaliseTelegram) -> String
+
+pub fn track_model(Array[TrackSegment]) -> TrackModel
+
+pub fn track_segment(Int, Int, Int, Int) -> TrackSegment
+
+pub fn track_status_counts(Array[TrackSample]) -> (Int, Int, Int, Int)
+
+pub fn train_profile(Int, Int, Int) -> TrainProfile
+
+pub fn unknown_packet(PacketHeader, BitVector) -> Packet
+
+pub fn validate_channel(BitVector, TelegramForm) -> ValidationReport
+
+pub fn validate_packet(Packet) -> ValidationReport
+
+pub fn validate_telegram(BaliseTelegram) -> ValidationReport
 
 // Errors
 pub(all) suberror GroupError {
@@ -136,6 +266,20 @@ pub struct BaliseTelegram {
   logical_payload : BitVector
 }
 
+pub struct BitDiff {
+  same_length : Bool
+  hamming_distance : Int
+  first_difference : Int
+  changed_positions : Array[Int]
+}
+
+pub struct BitMutation {
+  offset : Int
+  kind : MutationKind
+  before : Bool
+  after : Bool
+}
+
 pub enum BitReadError {
   InvalidWidth(Int)
   OutOfBounds(Int, Int)
@@ -154,21 +298,30 @@ pub fn BitReader::position(Self) -> Int
 pub fn BitReader::read_bit(Self) -> Result[Bool, BitReadError]
 pub fn BitReader::read_bits(Self, Int) -> Result[BitVector, BitReadError]
 pub fn BitReader::read_uint(Self, Int) -> Result[Int, BitReadError]
+pub fn BitReader::read_uint_at(Self, Int, Int) -> Result[Int, BitReadError]
 pub fn BitReader::remaining(Self) -> Int
 pub fn BitReader::reset(Self, Int) -> Result[Unit, BitReadError]
+pub fn BitReader::seek(Self, Int) -> Result[Unit, BitReadError]
 pub fn BitReader::skip(Self, Int) -> Result[Unit, BitReadError]
 
 pub struct BitVector {
   bits : Array[Bool]
 }
 pub fn BitVector::append(Self, Self) -> Unit
+pub fn BitVector::count_ones(Self) -> Int
 pub fn BitVector::from_array(Array[Bool]) -> Self
+pub fn BitVector::from_bytes(Array[Int]) -> Result[Self, BitReadError]
+pub fn BitVector::from_hex(String) -> Result[Self, BitReadError]
 pub fn BitVector::from_string(String) -> Result[Self, BitReadError]
 pub fn BitVector::get(Self, Int) -> Result[Bool, BitReadError]
+pub fn BitVector::hamming_distance(Self, Self) -> Int
+pub fn BitVector::invert(Self) -> Self
 pub fn BitVector::length(Self) -> Int
 pub fn BitVector::new() -> Self
 pub fn BitVector::push(Self, Bool) -> Unit
 pub fn BitVector::slice(Self, Int, Int) -> Result[Self, BitReadError]
+pub fn BitVector::to_bytes(Self) -> Array[Int]
+pub fn BitVector::to_hex(Self) -> String
 pub fn BitVector::to_string(Self) -> String
 
 pub struct BitWriter {
@@ -178,6 +331,7 @@ pub fn BitWriter::finish(Self) -> BitVector
 pub fn BitWriter::new() -> Self
 pub fn BitWriter::write_bit(Self, Bool) -> Unit
 pub fn BitWriter::write_bits(Self, BitVector) -> Unit
+pub fn BitWriter::write_bytes(Self, Array[Int]) -> Result[Unit, BitReadError]
 pub fn BitWriter::write_uint(Self, Int, Int) -> Result[Unit, BitReadError]
 
 pub enum ChannelError {
@@ -210,6 +364,20 @@ pub struct ChannelLayout {
   check_bits : Int
 }
 
+pub struct DeterministicRng {
+  mut state : Int
+}
+pub fn DeterministicRng::next(Self) -> Int
+pub fn DeterministicRng::next_bool(Self) -> Bool
+pub fn DeterministicRng::next_bounded(Self, Int) -> Int
+
+pub struct FieldSchema {
+  name : String
+  offset : Int
+  width : Int
+  repeated : Bool
+}
+
 pub struct GeneratedTelegram {
   ordinal : Int
   identity : BaliseIdentity
@@ -234,6 +402,15 @@ pub struct GroupLinkReport {
   target_country : Int
   target_group : Int
   resolution : LinkResolution
+}
+
+pub struct LinkChainStep {
+  source : Int
+  target : Int
+  country : Int
+  group : Int
+  distance : Int
+  status : LinkResolution
 }
 
 pub enum LinkResolution {
@@ -262,6 +439,11 @@ pub struct MovementAuthorityPacket {
   sections : Array[AuthoritySection]
 }
 
+pub enum MutationKind {
+  SingleBit
+  Burst(Int)
+}
+
 pub enum Packet {
   Linking(LinkingPacket)
   MovementAuthority(MovementAuthorityPacket)
@@ -269,6 +451,21 @@ pub enum Packet {
   StaticSpeed(StaticSpeedPacket)
   Unknown(PacketHeader, BitVector)
   End
+}
+
+pub struct PacketCursor {
+  packets : Array[Packet]
+  mut index : Int
+}
+pub fn PacketCursor::next(Self) -> Packet?
+pub fn PacketCursor::remaining(Self) -> Int
+pub fn PacketCursor::rewind(Self) -> Unit
+
+pub struct PacketDescriptor {
+  id : Int
+  name : String
+  minimum_body_bits : Int
+  repeatable : Bool
 }
 
 pub enum PacketDirection {
@@ -284,6 +481,58 @@ pub struct PacketHeader {
   length_bits : Int
 }
 
+pub struct PacketMetrics {
+  total : Int
+  unknown : Int
+  payload_bits : Int
+  counts : Array[(Int, Int)]
+}
+pub fn PacketMetrics::summary(Self) -> String
+
+pub struct PacketSchema {
+  id : Int
+  name : String
+  fields : Array[FieldSchema]
+}
+
+pub enum PassDirection {
+  Forward
+  Reverse
+}
+
+pub struct PassEvent {
+  ordinal : Int
+  travel_distance : Int
+  identity : BaliseIdentity
+  packet_count : Int
+  matched_links : Int
+  unresolved_links : Int
+  ambiguous_links : Int
+}
+
+pub struct PassReport {
+  direction : PassDirection
+  events : Array[PassEvent]
+  link_reports : Array[GroupLinkReport]
+}
+pub fn PassReport::ambiguous_count(Self) -> Int
+pub fn PassReport::event_count(Self) -> Int
+pub fn PassReport::resolved_count(Self) -> Int
+pub fn PassReport::unresolved_count(Self) -> Int
+
+pub struct SafetySample {
+  ordinal : Int
+  speed_limit : Int
+  actual_speed : Int
+  status : SafetyStatus
+}
+
+pub enum SafetyStatus {
+  WithinLimit
+  Overspeed
+  NoSpeedProfile
+}
+
 pub struct Scenario {
   form : TelegramForm
   balises : Array[ScenarioBalise]
@@ -293,6 +542,12 @@ pub struct Scenario {
 pub struct ScenarioBalise {
   identity : BaliseIdentity
   packets : Array[Packet]
+}
+
+pub struct ScramblerProfile {
+  seed : Int
+  polynomial : Int
+  width : Int
 }
 
 pub struct SpeedSection {
@@ -306,6 +561,16 @@ pub struct StaticSpeedPacket {
   scale : Int
   front : Int
   sections : Array[SpeedSection]
+}
+
+pub enum TelegramDifference {
+  HeaderVersion
+  HeaderIndex
+  HeaderCount
+  HeaderIdentity
+  PacketCount
+  PacketIdentifier(Int, Int, Int)
+  PayloadBits
 }
 
 pub enum TelegramForm {
@@ -325,6 +590,69 @@ pub struct TelegramHeader {
   country : Int
   group : Int
   sequence : Int
+}
+
+pub struct TelegramQuery {
+  country : Int?
+  group : Int?
+  packet_id : Int?
+  direction : PacketDirection?
+}
+
+pub struct TrackModel {
+  segments : Array[TrackSegment]
+}
+
+pub struct TrackSample {
+  distance : Int
+  gradient : Int
+  static_limit : Int
+  allowed_speed : Int
+  actual_speed : Int
+  braking_distance : Int
+  mut status : TrackStatus
+}
+
+pub struct TrackSegment {
+  start_distance : Int
+  length : Int
+  gradient : Int
+  static_limit : Int
+}
+
+pub enum TrackStatus {
+  Safe
+  NeedsBraking
+  Overspeed
+  UnknownLimit
+}
+
+pub struct TrainProfile {
+  max_speed : Int
+  acceleration : Int
+  braking : Int
+}
+
+pub struct ValidationIssue {
+  severity : ValidationSeverity
+  code : String
+  message : String
+  bit_offset : Int
+}
+
+pub struct ValidationReport {
+  issues : Array[ValidationIssue]
+}
+pub fn ValidationReport::add(Self, ValidationSeverity, String, String, Int) -> Unit
+pub fn ValidationReport::error_count(Self) -> Int
+pub fn ValidationReport::is_valid(Self) -> Bool
+pub fn ValidationReport::summary(Self) -> String
+pub fn ValidationReport::warning_count(Self) -> Int
+
+pub enum ValidationSeverity {
+  Info
+  Warning
+  Error
 }
 
 // Type aliases

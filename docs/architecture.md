@@ -21,6 +21,11 @@ BitVector / BitReader / BitWriter
                     ├── BaliseGroup observations
                     ├── forward / reverse order
                     └── Linking resolution reports
+
+Validation, catalog, schema, diff, fuzz, scrambler and track modules are
+side-effect-free adapters around the same core records. They are kept out of
+the channel parser so a BTM implementation can depend on only the layers it
+needs.
 ```
 
 ## 关键不变量

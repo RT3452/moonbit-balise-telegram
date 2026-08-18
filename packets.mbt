@@ -129,6 +129,16 @@ pub fn make_static_speed_packet(
 }
 
 ///|
+pub fn end_packet() -> Packet {
+  Packet::End
+}
+
+///|
+pub fn unknown_packet(header : PacketHeader, body : BitVector) -> Packet {
+  Packet::Unknown(header, body)
+}
+
+///|
 fn direction_to_int(direction : PacketDirection) -> Int {
   match direction {
     Nominal => 0

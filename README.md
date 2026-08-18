@@ -16,6 +16,8 @@ MoonBit 地面应答器（Eurobalise / CTCS Balise）报文解析与数据链路
 - Telegram 容器：50 bit 头、Packet 255 终止、固定长度填充、逻辑载荷与信道帧往返。
 - Balise Group：按观测顺序记录正向/反向过顶，按国家码和组号解析 Linking Telegram 的目标，区分匹配、未匹配和歧义。
 - Fixture generator：从轨旁场景配置生成稳定的逻辑报文和原始 341/1023 bit 测试向量。
+- Validation / schema / diff：提供字段宽度 schema、语义校验报告、Packet 查询、位差异和 Telegram 语义差异工具。
+- Trace / track helpers：提供确定性变异向量、LFSR scrambler 接口、正反向过顶报告和轨道速度/制动距离评估。
 
 ## 运行示例
 
@@ -62,7 +64,7 @@ let decoded = parse_telegram(payload, form)
 ### 评审可验证项
 
 - `moon run cmd/balise-inspect`：可运行示例。
-- `moon test --deny-warn`：位流边界、短/长信道帧、校验破坏、Packet 往返、Telegram 往返、应答器组链接测试。
+- `moon test --deny-warn`：29 个测试覆盖位流边界、短/长信道帧、校验破坏、Packet 往返、Telegram 往返、应答器组链接、查询、schema、变异、差异和轨道评估。
 - `docs/architecture.md`：模块关系、字段边界和扩展点。
 - `docs/protocol-scope.md`：已实现字段与明确未实现内容。
 - `.github/workflows/ci.yml`：跨平台格式、信息生成、检查和测试。
@@ -80,6 +82,13 @@ channel.mbt         341/1023 bit 帧与 85 bit 校验
 packets.mbt         Packet 5/12/21/27 与通用包信封
 telegram.mbt        Telegram 头、包序列和填充
 group.mbt           Balise Group、Linking 和 fixture generator
+validation.mbt      语义校验报告
+catalog.mbt         Packet catalog、cursor 和 metrics
+fuzz.mbt            确定性 fixture 与损坏帧生成
+track.mbt           轨道速度与制动距离评估
+schema.mbt          Packet 字段 schema
+diff.mbt            bit / Telegram 差异报告
+scrambler.mbt       可插拔 LFSR scrambler
 cmd/balise-inspect  可运行示例
 docs/               架构、协议范围、来源与提案说明
 ```
