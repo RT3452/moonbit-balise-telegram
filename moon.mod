@@ -1,4 +1,4 @@
-name = "moonbit_balise_telegram/moonbit_balise_telegram"
+name = "RT3452/moonbit-balise-telegram"
 
 version = "0.1.0"
 

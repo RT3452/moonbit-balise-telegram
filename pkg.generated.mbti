@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "moonbit_balise_telegram/moonbit_balise_telegram"
+package "RT3452/moonbit-balise-telegram"
 
 // Values
 pub fn assess_speed_profile(BaliseTelegram, Int) -> Array[SafetySample]

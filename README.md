@@ -97,4 +97,4 @@ docs/               架构、协议范围、来源与提案说明
 
 代码采用 Apache-2.0。协议字段和帧尺寸的依据、第三方材料的许可证说明、码本来源边界见 [docs/sources.md](docs/sources.md)。本仓库没有复制 GPL 示例工程的实现代码；公开参考实现只用于交叉核对字段和多项式常量，所有 MoonBit 实现均在本仓库中独立编写。
 
-提交 Mooncakes 前，需要把 `moon.mod` 中的模块 owner 从当前本地占位命名空间替换为参赛者自己的 GitHub/Mooncakes 用户名，并把发布地址写入 manifest；本地开发和 CI 不依赖这个替换。当前没有执行任何远程推送。
+`moon.mod` 已使用参赛者的 `RT3452/moonbit-balise-telegram` 模块命名空间，与公开 GitHub 仓库保持一致；Mooncakes 发布仍需参赛者在目标平台确认发布操作。本地仓库已通过 CI 并完成首次推送。
